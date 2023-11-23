@@ -12,28 +12,30 @@ using namespace std;
 
 class Node {
 private:
+
+
     bool isOperation;
     int value;
     string opvar;
     vector<Node> children;
 public:
-    Node();
-    Node(int valueInit, bool isOperationInit,string operationInit);
-    Node(int valueInit, bool isOperationInit);
+
     void addChild(Node child);
     bool isVariable();
     string toString();
     void prefixTraverse(Node &node);
     const vector<Node> &getChildren() const;
     void addVariables(vector<string> &variables);
-
+    Node(int valueInit, bool isOperationInit, string &operationInit);
+    Node();
+    Node(int valueInit, bool isOperationInit);
     Node* getLeaf();
 
 
 
-    float compile(Node &node, vector<string> &variables, vector<int> &values);
+    double compile(Node &node, vector<string> &variables, vector<int> &values);
 
-    float calculate(vector<Node> &nodeValues, vector<string> &variables, vector<int> &values);
+    double calculate(vector<Node> &nodeValues, vector<string> &variables, vector<int> &values);
 };
 
 

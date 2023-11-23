@@ -50,6 +50,7 @@ int Tree::getPositiveNumber(const string &word) {
 }
 
 int Tree::getNumberOfOperands(const string &word) {
+
     if (word == "+" || word == "-" || word == "*" || word == "/") {
         return 2;
     } else if (word == "sin" || word == "cos") {

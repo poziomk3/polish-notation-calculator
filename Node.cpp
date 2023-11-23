@@ -6,8 +6,9 @@
 #include <iostream>
 #include "Node.h"
 #include <vector>
+#include <cmath>
 using namespace std;
-Node::Node(int valueInit, bool isOperationInit, string operationInit) {
+Node::Node(int valueInit, bool isOperationInit, string &operationInit) {
     value=valueInit;
     isOperation=isOperationInit;
     opvar=operationInit;
@@ -49,7 +50,7 @@ void Node::prefixTraverse(Node &node) {
 }
 
 bool Node::isVariable() {
-    return !isOperation && value == -1;
+    return !isOperation && value==-1;
 }
 void Node::addVariables(vector<string> &variables) {
     if (isVariable() && variables.end() == find(variables.begin(), variables.end(), opvar))
@@ -58,7 +59,7 @@ void Node::addVariables(vector<string> &variables) {
         child.addVariables(variables);
 }
 
-float Node::compile(Node &node, vector<string> &variables, vector<int> &values) {
+double Node::compile(Node &node, vector<string> &variables, vector<int> &values) {
     if (value != -1)
         return value;
     if (isVariable())
@@ -70,7 +71,7 @@ float Node::compile(Node &node, vector<string> &variables, vector<int> &values) 
 
 }
 
-float Node::calculate(vector<Node> &nodeValues, vector<string> &variables, vector<int> &values) {
+double Node::calculate(vector<Node> &nodeValues, vector<string> &variables, vector<int> &values) {
     if(opvar=="+")
         return nodeValues[0].compile(nodeValues[0],variables,  values) + nodeValues[1].compile(nodeValues[1],variables,  values);
     if(opvar=="-")
@@ -80,9 +81,9 @@ float Node::calculate(vector<Node> &nodeValues, vector<string> &variables, vecto
     if(opvar=="/")
         return nodeValues[0].compile(nodeValues[0],variables,  values) / nodeValues[1].compile(nodeValues[1],variables,  values);
     if(opvar=="sin")
-        return nodeValues[0].compile(nodeValues[0],variables,  values);
+        return sin(nodeValues[0].compile(nodeValues[0],variables,  values));
     if(opvar=="cos")
-        return nodeValues[0].compile(nodeValues[0],variables,  values);
+        return cos(nodeValues[0].compile(nodeValues[0],variables,  values));
 
 }
 
