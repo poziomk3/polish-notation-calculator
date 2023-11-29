@@ -17,7 +17,10 @@ private:
     bool isOperation;
     int value;
     string opvar;
-    vector<Node> children;
+    vector<Node> children;//vector of children
+
+
+
 public:
 
     void addChild(Node child);

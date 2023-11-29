@@ -62,8 +62,12 @@ void Node::addVariables(vector<string> &variables) {
 double Node::compile(Node &node, vector<string> &variables, vector<int> &values) {
     if (value != -1)
         return value;
+
+
     if (isVariable())
-        return values[distance(variables.begin(), find(variables.begin(), variables.end(), opvar))];
+        for(int i=0;i<variables.size();++i)
+            if(variables[i]==opvar)
+                return values[values.size()-i-1];
 
     if (isOperation) {
             return calculate(children, variables, values);

@@ -20,13 +20,16 @@ void Interface::start() {
         cout << "Wpisz polecenie:" << endl;
         string expression;
         getline(cin, expression);
-
+        if(!expression.empty()){
+        if(expression=="exit")
+            break;
         vector<string> line = convertToVector(expression);
         string word;
         word = line.back();
         line.pop_back();
 
         tree = executeCommand(word, line, tree);
+        }
     }
 
 
@@ -65,6 +68,7 @@ Tree Interface::executeCommand(string &command, vector<string> &line, Tree &tree
         tree.traverseTree();
     } else if (command == "vars")
         tree.printVariables(line);
+
     else
         cout << "Niepoprawna komenda" << endl;
     return tree;
