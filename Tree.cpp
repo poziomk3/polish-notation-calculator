@@ -1,17 +1,17 @@
-//
-// Created by karol on 20.11.2023.
-//
 #include <iostream>
 #include "Tree.h"
 #include <vector>
 
 using namespace std;
 
+//klasa odpowiada za procesowanie danych otrzymanych z interface'u konsolowego na modelu drzewa
 
+// Konstruktor z inicjalizacją wyrażenia
 Tree::Tree(vector<string> expressionInit) {
     mistakeFound = false;
     expressionVector = expressionInit;
 
+    // Tworzenie drzewa i sprawdzanie błędów
     root = createTree(root);
     if (mistakeFound)
         cout << "Niepoprawne wyrazenie zostalo poprawione" << endl;
@@ -19,7 +19,7 @@ Tree::Tree(vector<string> expressionInit) {
         cout << "Wyrazenie jest poprawne" << endl;
 }
 
-
+// Sprawdza, czy słowo jest poprawną nazwą zmiennej
 bool Tree::isVariableName(const string &word) {
     if (getPositiveNumber(word) != -1)
         return false;
@@ -29,14 +29,15 @@ bool Tree::isVariableName(const string &word) {
             if (i < '0' || i > '9')
                 return false;
 
-
     return true;
 }
 
+// Sprawdza, czy słowo jest operacją
 int Tree::iSOperation(const string &word) {
     return word == "+" || word == "-" || word == "*" || word == "/" || word == "sin" || word == "cos";
 }
 
+// Wydobywa dodatnią liczbę z słowa
 int Tree::getPositiveNumber(const string &word) {
     int number = 0;
     for (char i: word) {
@@ -49,8 +50,8 @@ int Tree::getPositiveNumber(const string &word) {
     return number;
 }
 
+// Pobiera liczbę operandów dla danej operacji
 int Tree::getNumberOfOperands(const string &word) {
-
     if (word == "+" || word == "-" || word == "*" || word == "/") {
         return 2;
     } else if (word == "sin" || word == "cos") {
@@ -60,7 +61,7 @@ int Tree::getNumberOfOperands(const string &word) {
     }
 }
 
-
+// Rekurencyjnie tworzy drzewo wyrażenia
 Node Tree::createTree(Node &node) {
     if (expressionVector.empty()) {
         mistakeFound = true;
@@ -70,13 +71,11 @@ Node Tree::createTree(Node &node) {
     string item = expressionVector.back();
     expressionVector.pop_back();
     if (iSOperation(item)) {
-
+        // Jeśli element to operacja, tworzy węzeł i dodaje dzieci
         node = Node(-1, true, item);
         for (int i = 0; i < getNumberOfOperands(item); ++i) {
-
             Node nowy;
             node.addChild(createTree(nowy));
-
         }
         return node;
     } else if (isVariableName(item))
@@ -89,20 +88,23 @@ Node Tree::createTree(Node &node) {
     }
 }
 
+// Przechodzi przez drzewo używając notacji prefiksowej
 void Tree::traverseTree() {
     root.prefixTraverse(root);
 }
 
+// Wypełnia wektor zmiennych
 void Tree::fillVariables() {
     root.addVariables(variables);
 }
 
+// Wyświetla elementy wektora
 void Tree::printVector(vector<string> &vector) {
     for (const string &i: vector)
         cout << i << " ";
-
 }
 
+// Wypełnia wektor wartości na podstawie wyrażenia
 vector<int> Tree::fillValues(const vector<string>& expression) {
     vector<int> result;
     for (const string &i: expression)
@@ -111,11 +113,11 @@ vector<int> Tree::fillValues(const vector<string>& expression) {
     return result;
 
 }
-
+// Konstruktor domyślny
 Tree::Tree() {
-
 }
 
+// Kompiluje wyrażenie na podstawie przekazanych wartości
 void Tree::compile(vector<string> expression) {
     fillVariables();
     values = fillValues(expression);
@@ -123,22 +125,16 @@ void Tree::compile(vector<string> expression) {
         cout << "Nie mozna skompilowac, zla liczba wartosci" << endl;
     } else
         cout << root.compile(root, variables, values) << endl;
-
 }
 
+// Wyświetla zmienne z drzewa
 void Tree::printVariables(vector<string> expression) {
     fillVariables();
     printVector(variables);
 }
 
-
-
+// Operator dodawania drzew
 Tree Tree::operator+(const Tree& tree) {
     *root.getLeaf()=tree.root;
     return *this;
 }
-
-
-
-
-

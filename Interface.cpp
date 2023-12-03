@@ -1,7 +1,3 @@
-//
-// Created by karol on 21.11.2023.
-//
-
 #include <iostream>
 #include "Interface.h"
 #include "Tree.h"
@@ -9,33 +5,32 @@
 
 using namespace std;
 
+// Konstruktor interfejsu
 Interface::Interface() {
 
 }
 
-
+// Rozpoczyna działanie interfejsu
 void Interface::start() {
     Tree tree;
     while (true) {
         cout << "Wpisz polecenie:" << endl;
         string expression;
         getline(cin, expression);
-        if(!expression.empty()){
-        if(expression=="exit")
-            break;
-        vector<string> line = convertToVector(expression);
-        string word;
-        word = line.back();
-        line.pop_back();
+        if (!expression.empty()) {
+            if (expression == "exit")
+                break;
+            vector<string> line = convertToVector(expression);
+            string word;
+            word = line.back();
+            line.pop_back();
 
-        tree = executeCommand(word, line, tree);
+            tree = executeCommand(word, line, tree);
         }
     }
-
-
 }
 
-
+// Konwertuje wyrażenie na wektor słów
 vector<string> Interface::convertToVector(string expression) {
     vector<string> table;
     size_t iterator = 0;
@@ -54,6 +49,7 @@ vector<string> Interface::convertToVector(string expression) {
     return table;
 }
 
+// Wykonuje polecenie na drzewie i zwraca zmodyfikowane drzewo
 Tree Interface::executeCommand(string &command, vector<string> &line, Tree &tree) {
     if (command == "enter") {
         Tree nowy(line);
@@ -72,9 +68,4 @@ Tree Interface::executeCommand(string &command, vector<string> &line, Tree &tree
     else
         cout << "Niepoprawna komenda" << endl;
     return tree;
-
 }
-
-
-
-
