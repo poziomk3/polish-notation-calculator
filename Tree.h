@@ -112,7 +112,7 @@ inline bool Tree<string>::isVariableName(const string &word){
 
 // Sprawdza, czy słowo jest operacją
 template <typename T>
-int Tree<T>::iSOperation(const string &word) {
+inline int Tree<T>::iSOperation(const string &word) {
     return word == "+" || word == "-" || word == "*" || word == "/" || word == "sin" || word == "cos";
 }
 template <>
@@ -136,13 +136,15 @@ inline bool Tree<string>::isCalculable(const string &word) {
         return true;
     return false;
 }
+
+
+
 template <>
 inline double Tree<double>::getCalculable(const string &word) {
         if(isPositiveDouble(word))
         return stod(word);
         return -1;
 }
-
 
 template <>
 inline int Tree<int>::getCalculable(const string &word) {
@@ -156,6 +158,7 @@ inline int Tree<int>::getCalculable(const string &word) {
     }
     return number;
 }
+
 template <>
 inline string Tree<string>::getCalculable(const string &word) {
     return word;

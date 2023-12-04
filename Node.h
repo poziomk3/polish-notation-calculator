@@ -91,10 +91,20 @@ Node<T>::Node(bool isOperationInit, string &operationInit) {
 
 // Konstruktor domyślny
 template <typename T>
-Node<T>::Node() {
+inline Node<T>::Node() {
     isOperation = false;
     isValue= true;
+    value=1;
 }
+
+template <>
+inline Node<string>::Node() {
+    isOperation = false;
+    isValue= true;
+    value="defuatl_vlajsdiue";
+}
+
+
 
 // Dodaje dziecko do węzła
 template <typename T>
