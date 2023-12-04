@@ -4,9 +4,7 @@ project(zadanie3)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(zadanie3 main.cpp
-        Tree.cpp
         Tree.h
-        Node.cpp
         Node.h
         Interface.cpp
         Interface.h)

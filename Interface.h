@@ -11,10 +11,15 @@ using namespace std;
 class Interface {
 private:
     vector<string> convertToVector(string expression);
-    Tree executeCommand(string &command, vector<string> &line, Tree &tree);
 public:
     Interface();
     void start();
+
+    template<typename T>
+    void looper(Tree<T> &tree);
+
+    template<typename T>
+    Tree<T> executeCommand(string &command, vector<string> &line, Tree<T> &tree);
 };
 
 

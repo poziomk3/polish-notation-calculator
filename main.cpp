@@ -9,5 +9,4 @@ int main() {
 
 Interface interface;
 interface.start();
-
 }
