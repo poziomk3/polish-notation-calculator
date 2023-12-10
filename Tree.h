@@ -105,10 +105,11 @@ inline bool Tree<T>::isVariableName(const string &word) {
 
 template <>
 inline bool Tree<string>::isVariableName(const string &word){
-    if(word[0]=='"'&&word[word.size()-1]=='"')
+    if(word[0]!='"'&&word[word.size()-1]!='"')
         return true;
     return false;
 }
+
 
 // Sprawdza, czy słowo jest operacją
 template <typename T>
@@ -132,7 +133,7 @@ inline bool Tree<T>::isCalculable(const string &word) {
 }
 template<>
 inline bool Tree<string>::isCalculable(const string &word) {
-    if (word[0]!='"'&&word[word.size()-1]!='"')
+    if (word[0]=='"'&&word[word.size()-1]=='"')
         return true;
     return false;
 }
@@ -161,7 +162,11 @@ inline int Tree<int>::getCalculable(const string &word) {
 
 template <>
 inline string Tree<string>::getCalculable(const string &word) {
-    return word;
+    string withoutFirstAndLast;
+    for(int i=1;i<word.size()-1;i++)
+        withoutFirstAndLast+=word[i];
+
+    return withoutFirstAndLast;
 }
 
 // Pobiera liczbę operandów dla danej operacji

@@ -37,16 +37,17 @@ public:
     Node* getLeaf();
     string multiply(string string1, string string2);
     string divider(string string1, string string2);
-
     T compile(Node &node, vector<string> &variables, vector<T> &values);
 
     T calculate(vector<Node> &nodeValues, vector<string> &variables, vector<T> &values);
 };
 
+
+
 template<typename T>
 string Node<T>::divider(string string1, string string2) {
     while(string1.find(string2) != string::npos)
-        string1.erase(string1.find(string2), string2.length());
+        string1.erase(string1.find(string2)+1, string2.length()-1);
     return string1;
 }
 
@@ -70,6 +71,8 @@ string Node<T>::removelastS2fromS1(string string1, string string2) {
     string1.erase(string1.rfind(string2), string2.length());
     return string1;
 }
+
+
 
 template<typename T>
 Node<T>::Node(T valueInit) {
@@ -128,6 +131,12 @@ string Node<T>::toString() {
     else
     {
         ostringstream ss;
+        if(typeid(value) == typeid(string))
+        {
+
+            ss <<"\""<< value<<"\"";
+            return ss.str();
+        }
         ss << value;
         return ss.str();
     }

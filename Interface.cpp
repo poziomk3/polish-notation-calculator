@@ -18,7 +18,7 @@ void Interface::start() {
     cout << "1. String" << endl;
     cout << "2. Double" << endl;
     cout << "3. Int" << endl;
-    cout << "4. Wyjście" << endl;
+    cout << "4. Wyjscie" << endl;
     string type;
     cin>>type;
     if(type=="1"){
@@ -40,7 +40,6 @@ void Interface::start() {
         cout<<"Niepoprawny wybór"<<endl;
 
     }
-
 }}
 
 // Konwertuje wyrażenie na wektor słów
@@ -67,10 +66,11 @@ vector<string> Interface::convertToVector(string expression) {
 template<typename T>
 void Interface::looper(Tree<T> &tree) {
     while (true) {
-        cout << "Wpisz polecenie:" << endl;
+        cout << "Wpisz polecenie::" << endl;
         string expression;
-        getline(cin, expression);
-        if (!expression.empty()) {
+        while (expression.empty())
+            getline(cin, expression);
+        {
 
 
             vector<string> line = convertToVector(expression);
@@ -83,9 +83,9 @@ void Interface::looper(Tree<T> &tree) {
 
 
             tree = executeCommand(word, line, tree);
+
+
         }
-
-
     }
 }
 
