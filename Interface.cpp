@@ -84,7 +84,6 @@ void Interface::looper(Tree<T> &tree) {
 
             tree = executeCommand(word, line, tree);
 
-
         }
     }
 }
@@ -98,6 +97,7 @@ Tree<T> Interface::executeCommand(string &command, vector<string> &line, Tree<T>
     if (command == "enter") {
         Tree<T> nowy(line);
         nowy.traverseTree();
+//        Tree<T> tree2(nowy);
         return nowy;
     } else if (command == "print")
         tree.traverseTree();

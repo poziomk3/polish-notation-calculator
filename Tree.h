@@ -46,18 +46,101 @@ public:
     Tree();
 
     Tree(vector<string> expressionInit);
-
+    Tree(const Tree<T> &other);
+    Tree(Tree<T> &&other) ;
     void traverseTree();
 
     void printVariables(vector <string> variables);
 
     void compile(vector<string> expression);
 
-
+    Tree operator=(const Tree &other)  ;
+    Tree operator=(Tree &&other)  ;
     Tree operator+(const Tree &tree);
 
 
 };
+
+template<typename T>
+Tree<T> Tree<T>::operator=(Tree &&other) {
+    expressionVector = std::move(other.expressionVector);
+
+    // Move variables
+    variables = std::move(other.variables);
+
+    // Move values
+    values = std::move(other.values);
+
+    // Move the root by creating a new tree with the same expression
+    root = std::move(other.root);
+
+    // Move mistakeFound
+    mistakeFound = std::move(other.mistakeFound);
+
+
+    return *this;
+}
+
+
+template<typename T>
+Tree<T> Tree<T>::operator=(const Tree &other) {
+    expressionVector = other.expressionVector;
+
+    // Move variables
+    variables = other.variables;
+
+    // Move values
+    values = other.values;
+
+    // Move the root by creating a new tree with the same expression
+    root = other.root;
+
+    // Move mistakeFound
+    mistakeFound = other.mistakeFound;
+    return *this;
+
+}
+
+template<typename T>
+Tree<T>::Tree(Tree<T> &&other) {
+
+    // Move expressionVector
+    expressionVector = std::move(other.expressionVector);
+
+    // Move variables
+    variables = std::move(other.variables);
+
+    // Move values
+    values =std::move (other.values);
+
+    // Move the root by creating a new tree with the same expression
+    root = std::move(other.root);
+
+    // Move mistakeFound
+    mistakeFound = std::move(other.mistakeFound);
+
+}
+
+template<typename T>
+Tree<T>::Tree(const Tree<T> &other) {
+    // Copy expressionVector
+    expressionVector = other.expressionVector;
+
+    // Copy variables
+    variables = other.variables;
+
+    // Copy values
+    values = other.values;
+
+    // Copy the root by creating a new tree with the same expression
+    root = other.root;
+
+    // Copy mistakeFound
+    mistakeFound = other.mistakeFound;
+
+}
+
+
 
 
 // Sprawdza, czy słowo jest operacją
@@ -255,10 +338,16 @@ Tree<T> Tree<T>::operator+(const Tree &tree) {
     return *this;
 }
 
+
+
 // Konstruktor domyślny
 template<typename T>
 Tree<T>::Tree() {
+
 }
+
+
+
 //konstruktor z wektorem stringów
 template<typename T>
 Tree<T>::Tree(vector<string> expressionInit) {
