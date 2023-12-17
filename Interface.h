@@ -4,15 +4,19 @@
 
 #ifndef ZADANIE3_INTERFACE_H
 #define ZADANIE3_INTERFACE_H
+
 #include <vector>
 #include "Tree.h"
 
 using namespace std;
+
 class Interface {
 private:
     vector<string> convertToVector(string expression);
+
 public:
     Interface();
+
     void start();
 
     template<typename T>

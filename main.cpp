@@ -3,10 +3,11 @@
 #include "Tree.h"
 #include "Interface.h"
 #include<string>
+
 using namespace std;
 
 int main() {
 
-Interface interface;
-interface.start();
+    Interface interface;
+    interface.start();
 }
