@@ -56,7 +56,8 @@ public:
 
     Tree operator=(const Tree &other)  ;
     Tree operator=(Tree &&other)  ;
-    Tree operator+(const Tree &tree);
+    Tree operator+(const Tree &tree) const&;
+    Tree operator+(const Tree &tree)&&;
 
 
 };
@@ -333,9 +334,16 @@ void Tree<T>::printVariables(vector<string> variables) {
 
 // Operator dodawania drzew
 template<typename T>
-Tree<T> Tree<T>::operator+(const Tree &tree) {
+Tree<T> Tree<T>::operator+(const Tree &tree) const&{
+    Tree<T> newT (*this);
+    *newT.root.getLeaf() = tree.root;
+    return std::move(newT);
+}
+
+template<typename T>
+Tree<T> Tree<T>::operator+(const Tree &tree) &&{
     *root.getLeaf() = tree.root;
-    return *this;
+    return std::move(*this);
 }
 
 
